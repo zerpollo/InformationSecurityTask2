@@ -9,14 +9,14 @@ namespace InformationSecurityTask2
 {
     public class ECBoperations
     {
-        public static byte[] Encrypt(string filePath, byte[] key)
+
+        public static byte[] ECBEncryptFromFile(string filePath, string key)
         {
             byte[] data = File.ReadAllBytes(filePath);
             byte[] encryptedData;
-
             using (Aes aes = Aes.Create())
             {
-                aes.Key = key;
+                aes.Key = Encoding.UTF8.GetBytes(key).Take(32).ToArray();
                 aes.Mode = CipherMode.ECB;
                 aes.Padding = PaddingMode.PKCS7;
 
@@ -26,14 +26,14 @@ namespace InformationSecurityTask2
 
             return encryptedData;
         }
-        public static byte[] Decrypt(string filePath, byte[] key)
+        public static byte[] ECBDecryptFromFile(string filePath, string key)
         {
             byte[] encryptedData = File.ReadAllBytes(filePath);
             byte[] decryptedData;
 
             using (Aes aes = Aes.Create())
             {
-                aes.Key = key;
+                aes.Key = Encoding.UTF8.GetBytes(key).Take(32).ToArray();
                 aes.Mode = CipherMode.ECB;
                 aes.Padding = PaddingMode.PKCS7;
 
@@ -42,6 +42,39 @@ namespace InformationSecurityTask2
             }
 
             return decryptedData;
+        }
+        public static byte[] ECBEncryptFromInput(string plainText, string key)
+        {
+            byte[] plainBytes = Encoding.UTF8.GetBytes(plainText);
+            byte[] encryptedBytes;
+            using (Aes aes = Aes.Create())
+            {
+                aes.Key = Encoding.UTF8.GetBytes(key).Take(32).ToArray();
+                aes.Mode = CipherMode.ECB;
+                aes.Padding = PaddingMode.PKCS7;
+
+                ICryptoTransform encryptor = aes.CreateEncryptor();
+                encryptedBytes = encryptor.TransformFinalBlock(plainBytes, 0, plainBytes.Length);
+            }
+
+            return encryptedBytes;
+        }
+
+        public static string ECBDecryptFromInput(byte[] encryptedBytes, string key)
+        {
+            string plainText;
+            using (Aes aes = Aes.Create())
+            {
+                aes.Key = Encoding.UTF8.GetBytes(key).Take(32).ToArray();
+                aes.Mode = CipherMode.ECB;
+                aes.Padding = PaddingMode.PKCS7;
+
+                ICryptoTransform decryptor = aes.CreateDecryptor();
+                byte[] plainBytes = decryptor.TransformFinalBlock(encryptedBytes, 0, encryptedBytes.Length);
+                plainText = Encoding.UTF8.GetString(plainBytes);
+            }
+
+            return plainText;
         }
     }
 }
