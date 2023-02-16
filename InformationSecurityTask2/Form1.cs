@@ -11,13 +11,14 @@ namespace InformationSecurityTask2
         {
           //  byte[] key = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
           string key = KeyTB.Text;
-            string filePath = "data.txt";
+         //   string filePath = "data.txt";
 
-            byte[] encryptedData = ECBoperations.EncryptFromFile(filePath, key);
-            File.WriteAllBytes("encryptedData.txt", encryptedData);
-
-            byte[] decryptedData = ECBoperations.DecryptFromFile("encryptedData.txt", key);
-            File.WriteAllBytes("decryptedData.txt", decryptedData);
+            byte[] encryptedData = ECBoperations.ECBEncryptFromInput(PlainTextTB.Text, key);
+             ECBoperations.ECBDecryptFromInput(encryptedData, key);
+            EncryptedTB.Text = File.ReadAllText("EncryptedText.txt");
+            DecryptedTB.Text = File.ReadAllText("DecryptedText.txt");
+            
+         //   File.WriteAllBytes("decryptedData.txt", decryptedData);
         }
     }
 }
