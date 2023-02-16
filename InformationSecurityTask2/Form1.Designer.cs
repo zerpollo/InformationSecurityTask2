@@ -34,11 +34,8 @@
             this.KeyTB = new System.Windows.Forms.TextBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.EncryptBtn = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.EncryptedTB = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.DecryptedTB = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -80,29 +77,24 @@
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(258, 289);
+            this.comboBox1.Items.AddRange(new object[] {
+            "ECB encryption",
+            "ECB decryption from file",
+            "ECB decryption from input"});
+            this.comboBox1.Location = new System.Drawing.Point(248, 190);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 23);
+            this.comboBox1.Size = new System.Drawing.Size(187, 23);
             this.comboBox1.TabIndex = 4;
             // 
             // EncryptBtn
             // 
-            this.EncryptBtn.Location = new System.Drawing.Point(12, 281);
+            this.EncryptBtn.Location = new System.Drawing.Point(98, 190);
             this.EncryptBtn.Name = "EncryptBtn";
             this.EncryptBtn.Size = new System.Drawing.Size(117, 36);
             this.EncryptBtn.TabIndex = 5;
-            this.EncryptBtn.Text = "Encrypt from txt";
+            this.EncryptBtn.Text = "Start";
             this.EncryptBtn.UseVisualStyleBackColor = true;
             this.EncryptBtn.Click += new System.EventHandler(this.EncryptBtn_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(135, 281);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(117, 36);
-            this.button2.TabIndex = 6;
-            this.button2.Text = "Decrypt from txt";
-            this.button2.UseVisualStyleBackColor = true;
             // 
             // label3
             // 
@@ -119,24 +111,6 @@
             this.EncryptedTB.Name = "EncryptedTB";
             this.EncryptedTB.Size = new System.Drawing.Size(343, 23);
             this.EncryptedTB.TabIndex = 7;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(12, 239);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(117, 36);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "Encrypt from input";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(135, 239);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(117, 36);
-            this.button3.TabIndex = 10;
-            this.button3.Text = "Decrypt from input";
-            this.button3.UseVisualStyleBackColor = true;
             // 
             // label4
             // 
@@ -174,16 +148,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(566, 324);
+            this.ClientSize = new System.Drawing.Size(447, 232);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.OriginalTextTB);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.DecryptedTB);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.EncryptedTB);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.EncryptBtn);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label2);
@@ -205,11 +176,8 @@
         private TextBox KeyTB;
         private ComboBox comboBox1;
         private Button EncryptBtn;
-        private Button button2;
         private Label label3;
         private TextBox EncryptedTB;
-        private Button button1;
-        private Button button3;
         private Label label4;
         private TextBox DecryptedTB;
         private Label label5;

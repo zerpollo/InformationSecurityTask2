@@ -42,13 +42,13 @@ namespace InformationSecurityTask2
                 ICryptoTransform decryptor = aes.CreateDecryptor();
                 decryptedData = decryptor.TransformFinalBlock(encryptedData, 0, encryptedData.Length);
             }
-          string decryptedtext =  Convert.ToBase64String(decryptedData);
+            string decryptedtext = Convert.ToBase64String(decryptedData);
             File.WriteAllText("DecryptedText.txt", decryptedtext);
             //   return decryptedData;
         }
         public static byte[] ECBEncryptFromInput(string plainText, string key)
         {
-            byte[] plainBytes = Encoding.UTF8.GetBytes(plainText);
+            byte[] plainBytes = Encoding.UTF8.GetBytes(plainText).ToArray();
             byte[] encryptedData;
 
             using (Aes aes = Aes.Create())
@@ -62,12 +62,13 @@ namespace InformationSecurityTask2
                 encryptedData = encryptor.TransformFinalBlock(plainBytes, 0, plainBytes.Length);
             }
             string encryptedtext = Convert.ToBase64String(encryptedData);
-            File.WriteAllText("EncryptedText.txt", encryptedtext);
+            File.WriteAllText("ECBEncryptedText.txt", encryptedtext);
             return encryptedData;
         }
 
-        public static void ECBDecryptFromInput(byte[] encryptedBytes, string key)
+        public static void ECBDecryptFromInput(string EncryptedText, string key)
         {
+            byte[] encryptedBytes = Convert.FromBase64String(EncryptedText);
             byte[] decryptedData;
             using (Aes aes = Aes.Create())
             {
@@ -80,8 +81,7 @@ namespace InformationSecurityTask2
                 byte[] plainBytes = decryptor.TransformFinalBlock(encryptedBytes, 0, encryptedBytes.Length);
                 decryptedData = decryptor.TransformFinalBlock(encryptedBytes, 0, encryptedBytes.Length);
             }
-            string decryptedtext = Convert.ToBase64String(decryptedData);
-            File.WriteAllText("DecryptedText.txt", decryptedtext);
+            File.WriteAllBytes("decryptedData.txt", decryptedData);
         }
     }
 }
