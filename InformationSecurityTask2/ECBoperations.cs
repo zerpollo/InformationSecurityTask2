@@ -30,7 +30,8 @@ namespace InformationSecurityTask2
         }
         public static void ECBDecryptFromFile(string filePath, string key)
         {
-            byte[] encryptedData = File.ReadAllBytes(filePath);
+            string encryptedData = File.ReadAllText(filePath);
+           byte[] encryptedBytes = Convert.FromBase64String(encryptedData);
             byte[] decryptedData;
 
             using (Aes aes = Aes.Create())
@@ -40,10 +41,10 @@ namespace InformationSecurityTask2
                 aes.Padding = PaddingMode.PKCS7;
 
                 ICryptoTransform decryptor = aes.CreateDecryptor();
-                decryptedData = decryptor.TransformFinalBlock(encryptedData, 0, encryptedData.Length);
+                decryptedData = decryptor.TransformFinalBlock(encryptedBytes, 0, encryptedBytes.Length);
             }
             string decryptedtext = Convert.ToBase64String(decryptedData);
-            File.WriteAllText("DecryptedText.txt", decryptedtext);
+            File.WriteAllText("ECBDecryptedText.txt", decryptedtext);
             //   return decryptedData;
         }
         public static byte[] ECBEncryptFromInput(string plainText, string key)
@@ -78,10 +79,11 @@ namespace InformationSecurityTask2
                 aes.Padding = PaddingMode.PKCS7;
 
                 ICryptoTransform decryptor = aes.CreateDecryptor();
-                byte[] plainBytes = decryptor.TransformFinalBlock(encryptedBytes, 0, encryptedBytes.Length);
                 decryptedData = decryptor.TransformFinalBlock(encryptedBytes, 0, encryptedBytes.Length);
+                string decryptedtext = Convert.ToBase64String(decryptedData);
+                File.WriteAllText("ECBDecryptedText.txt", decryptedtext);
             }
-            File.WriteAllBytes("decryptedData.txt", decryptedData);
+            
         }
     }
 }

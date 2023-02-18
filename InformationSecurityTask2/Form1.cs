@@ -34,7 +34,7 @@ namespace InformationSecurityTask2
                     break;
                 case 2:
                     ECBoperations.ECBDecryptFromInput(EncryptedTB.Text, key);
-                    DecryptedTB.Text = File.ReadAllText("ECBDecryptedText.txt");
+                    DecryptedTB.Text = File.ReadAllText("ECBDecryptedText1.txt");
                     break;
             }
         }
