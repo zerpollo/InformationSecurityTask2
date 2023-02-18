@@ -80,8 +80,7 @@
             this.comboBox1.Items.AddRange(new object[] {
             "ECB encryption",
             "ECB decryption from file",
-            "ECB decryption from input",
-            "CBC encryption"});
+            "ECB decryption from input"});
             this.comboBox1.Location = new System.Drawing.Point(248, 190);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(187, 23);
