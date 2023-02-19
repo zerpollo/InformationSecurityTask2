@@ -34,11 +34,17 @@ namespace InformationSecurityTask2
                     break;
                 case 2:
                     ECBoperations.ECBDecryptFromInput(EncryptedTB.Text, key);
-                    DecryptedTB.Text = File.ReadAllText("ECBDecryptedText1.txt");
+                    DecryptedTB.Text = File.ReadAllText("ECBDecryptedText.txt");
                     break;
                 case 3:
                     CBCoperations.CBCEncryptFromInput(PlainTextTB.Text, key);
-                    EncryptedTB.Text = File.ReadAllText("CBCEncrypted.txt");
+                    EncryptedTB.Text = File.ReadAllText("CBCEncryptedText.txt");
+                    break;
+                    case 4:
+                    break; 
+                case 5:
+                    CBCoperations.CBCDecryptionfromInput(EncryptedTB.Text, key);
+                    DecryptedTB.Text = File.ReadAllText("CBCDecryptedText.txt");
                     break;
             }
         }
