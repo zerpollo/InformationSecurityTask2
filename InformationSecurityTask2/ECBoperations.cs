@@ -26,9 +26,10 @@ namespace InformationSecurityTask2
             }
             string encryptedtext = Convert.ToBase64String(encryptedData);
             File.WriteAllText("EncryptedText.txt", encryptedtext);
+            
             //   return encryptedData;
         }
-        public static void ECBDecryptFromFile(string filePath, string key)
+        public static void ECBDecryptFromFile(string filePath, string key, TextBox OriginalTextTB)
         {
             string encryptedData = File.ReadAllText(filePath);
            byte[] encryptedBytes = Convert.FromBase64String(encryptedData);
@@ -45,6 +46,7 @@ namespace InformationSecurityTask2
             }
             string decryptedtext = Convert.ToBase64String(decryptedData);
             File.WriteAllText("ECBDecryptedText.txt", decryptedtext);
+            OriginalTextTB.Text = Encoding.UTF8.GetString(decryptedData);
             //   return decryptedData;
         }
         public static byte[] ECBEncryptFromInput(string plainText, string key)
@@ -67,7 +69,7 @@ namespace InformationSecurityTask2
             return encryptedData;
         }
 
-        public static void ECBDecryptFromInput(string EncryptedText, string key)
+        public static void ECBDecryptFromInput(string EncryptedText, string key, TextBox OriginalTextTB)
         {
             byte[] encryptedBytes = Convert.FromBase64String(EncryptedText);
             byte[] decryptedData;
@@ -82,6 +84,7 @@ namespace InformationSecurityTask2
                 decryptedData = decryptor.TransformFinalBlock(encryptedBytes, 0, encryptedBytes.Length);
                 string decryptedtext = Convert.ToBase64String(decryptedData);
                 File.WriteAllText("ECBDecryptedText.txt", decryptedtext);
+                OriginalTextTB.Text = Encoding.UTF8.GetString(decryptedData);
             }
             
         }

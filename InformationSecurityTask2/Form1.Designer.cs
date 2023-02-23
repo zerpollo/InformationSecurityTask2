@@ -83,7 +83,10 @@
             "ECB decryption from input",
             "CBC encryption",
             "CBC decryption from file",
-            "CBC decryption from input"});
+            "CBC decryption from input",
+            "CFB encryption",
+            "CFB decryption from file",
+            "CFB decryption from input"});
             this.comboBox1.Location = new System.Drawing.Point(248, 190);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(187, 23);

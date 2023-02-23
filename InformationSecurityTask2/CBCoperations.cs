@@ -10,7 +10,7 @@ namespace InformationSecurityTask2
 {
     public class CBCoperations
     {
-        public static byte[] CBCEncryptFromInput(string plainText, string key)
+        public static void CBCEncryptFromInput(string plainText, string key)
         {
             byte[] plainBytes = Encoding.UTF8.GetBytes(plainText);
 
@@ -37,11 +37,10 @@ namespace InformationSecurityTask2
                     cs.FlushFinalBlock();
                     string encryptedtext = Convert.ToBase64String(ms.ToArray());
                     File.WriteAllText("CBCEncryptedText.txt", encryptedtext);
-                    return ms.ToArray();
                 }
             }
         }
-        public static string CBCDecryptionfromInput(string encryptedText, string key)
+        public static void CBCDecryptionfromInput(string encryptedText, string key, TextBox OriginalTextTB)
         {
             byte[] encryptedData = Convert.FromBase64String(encryptedText);
             byte[] iv = new byte[16];
@@ -63,7 +62,34 @@ namespace InformationSecurityTask2
 
                     string decryptedtext = Convert.ToBase64String(ms.ToArray());
                     File.WriteAllText("CBCDecryptedText.txt", decryptedtext);
-                    return decryptedtext;
+                    OriginalTextTB.Text = Encoding.UTF8.GetString(ms.ToArray());
+                }
+            }
+        }
+        public static void CBCDecryptionFromFile(string filePath, string key, TextBox OriginalTextTB)
+        {
+            string encryptedData = File.ReadAllText(filePath);
+            byte[] encryptedBytes = Convert.FromBase64String(encryptedData);
+            byte[] iv = new byte[16];
+            Array.Copy(encryptedBytes, iv, 16);
+
+            using (Aes aes = Aes.Create())
+            {
+                aes.KeySize = 128;
+                aes.Key = Encoding.UTF8.GetBytes(key);
+                aes.IV = iv;
+                aes.Mode = CipherMode.CBC;
+                aes.Padding = PaddingMode.PKCS7;
+
+                using (var ms = new MemoryStream())
+                using (var cs = new CryptoStream(ms, aes.CreateDecryptor(), CryptoStreamMode.Write))
+                {
+                    cs.Write(encryptedBytes, 16, encryptedBytes.Length - 16);
+                    cs.FlushFinalBlock();
+
+                    string decryptedtext = Convert.ToBase64String(ms.ToArray());
+                    File.WriteAllText("CBCDecryptedText.txt", decryptedtext);
+                    OriginalTextTB.Text = Encoding.UTF8.GetString(ms.ToArray());
                 }
             }
         }

@@ -1,3 +1,4 @@
+using System.Text;
 using System.Windows.Forms;
 
 namespace InformationSecurityTask2
@@ -29,11 +30,11 @@ namespace InformationSecurityTask2
                     EncryptedTB.Text = File.ReadAllText("ECBEncryptedText.txt");
                     break;
                 case 1:
-                    ECBoperations.ECBDecryptFromFile("ECBEncryptedText.txt", key);
+                    ECBoperations.ECBDecryptFromFile("ECBEncryptedText.txt", key, OriginalTextTB);
                     DecryptedTB.Text = File.ReadAllText("ECBDecryptedText.txt");
-                    break;
+                    break; 
                 case 2:
-                    ECBoperations.ECBDecryptFromInput(EncryptedTB.Text, key);
+                    ECBoperations.ECBDecryptFromInput(EncryptedTB.Text, key, OriginalTextTB);
                     DecryptedTB.Text = File.ReadAllText("ECBDecryptedText.txt");
                     break;
                 case 3:
@@ -41,10 +42,22 @@ namespace InformationSecurityTask2
                     EncryptedTB.Text = File.ReadAllText("CBCEncryptedText.txt");
                     break;
                     case 4:
+                    CBCoperations.CBCDecryptionFromFile("CBCEncryptedText.txt", key, OriginalTextTB);
+                    DecryptedTB.Text = File.ReadAllText("CBCDecryptedText.txt");
                     break; 
                 case 5:
-                    CBCoperations.CBCDecryptionfromInput(EncryptedTB.Text, key);
+                    CBCoperations.CBCDecryptionfromInput(EncryptedTB.Text, key, OriginalTextTB);
                     DecryptedTB.Text = File.ReadAllText("CBCDecryptedText.txt");
+                    break;
+                    case 6:
+                    CFBoperations.CFBEncryptFromInput(PlainTextTB.Text, key);
+                    EncryptedTB.Text = File.ReadAllText("CFBEncryptedText.txt");
+                    break;
+                    case 7:
+                    break; 
+                case 8:
+                    CFBoperations.CFBDecryptFromInput(EncryptedTB.Text, key, OriginalTextTB);
+                    DecryptedTB.Text = File.ReadAllText("CFBDecryptedText.txt");
                     break;
             }
         }
