@@ -10,81 +10,62 @@ namespace InformationSecurityTask2
 {
     public class ECBoperations
     {
-
-        public static void ECBEncryptFromFile(string filePath, string key)
+        public static void ECBEncryptFromInput(string plainText, string key)
         {
-            byte[] data = File.ReadAllBytes(filePath);
-            byte[] encryptedData;
-            using (Aes aes = Aes.Create())
-            {
-                aes.Key = Encoding.UTF8.GetBytes(key).ToArray();
-                aes.Mode = CipherMode.ECB;
-                aes.Padding = PaddingMode.PKCS7;
+            byte[] ConvertedBytesFromText = Encoding.UTF8.GetBytes(plainText).ToArray();
+            byte[] EncryptedBytes;
 
-                ICryptoTransform encryptor = aes.CreateEncryptor();
-                encryptedData = encryptor.TransformFinalBlock(data, 0, data.Length);
+            using (Aes AES = Aes.Create())
+            {
+                AES.KeySize = 128;
+                AES.Key = Encoding.UTF8.GetBytes(key).ToArray();
+                AES.Mode = CipherMode.ECB;
+                AES.Padding = PaddingMode.PKCS7;
+
+                ICryptoTransform encryptor = AES.CreateEncryptor();
+                EncryptedBytes = encryptor.TransformFinalBlock(ConvertedBytesFromText, 0, ConvertedBytesFromText.Length);
             }
-            string encryptedtext = Convert.ToBase64String(encryptedData);
-            File.WriteAllText("EncryptedText.txt", encryptedtext);
-            
-            //   return encryptedData;
+            string encryptedtext = Convert.ToBase64String(EncryptedBytes);
+            File.WriteAllText("ECBEncryptedText.txt", encryptedtext);
         }
+
         public static void ECBDecryptFromFile(string filePath, string key, TextBox OriginalTextTB)
         {
-            string encryptedData = File.ReadAllText(filePath);
-           byte[] encryptedBytes = Convert.FromBase64String(encryptedData);
-            byte[] decryptedData;
+            string EncryptedTextFromFile = File.ReadAllText(filePath);
+           byte[] ConvertedBytes = Convert.FromBase64String(EncryptedTextFromFile);
+            byte[] DecryptedData;
 
-            using (Aes aes = Aes.Create())
+            using (Aes AES = Aes.Create())
             {
-                aes.Key = Encoding.UTF8.GetBytes(key).ToArray();
-                aes.Mode = CipherMode.ECB;
-                aes.Padding = PaddingMode.PKCS7;
+                AES.KeySize = 128;
+                AES.Key = Encoding.UTF8.GetBytes(key).ToArray();
+                AES.Mode = CipherMode.ECB;
+                AES.Padding = PaddingMode.PKCS7;
 
-                ICryptoTransform decryptor = aes.CreateDecryptor();
-                decryptedData = decryptor.TransformFinalBlock(encryptedBytes, 0, encryptedBytes.Length);
+                ICryptoTransform decryptor = AES.CreateDecryptor();
+                DecryptedData = decryptor.TransformFinalBlock(ConvertedBytes, 0, ConvertedBytes.Length);
             }
-            string decryptedtext = Convert.ToBase64String(decryptedData);
+            string decryptedtext = Convert.ToBase64String(DecryptedData);
             File.WriteAllText("ECBDecryptedText.txt", decryptedtext);
-            OriginalTextTB.Text = Encoding.UTF8.GetString(decryptedData);
-            //   return decryptedData;
+            OriginalTextTB.Text = Encoding.UTF8.GetString(DecryptedData);
         }
-        public static byte[] ECBEncryptFromInput(string plainText, string key)
-        {
-            byte[] plainBytes = Encoding.UTF8.GetBytes(plainText).ToArray();
-            byte[] encryptedData;
-
-            using (Aes aes = Aes.Create())
-            {
-                aes.KeySize = 256;
-                aes.Key = Encoding.UTF8.GetBytes(key).ToArray();
-                aes.Mode = CipherMode.ECB;
-                aes.Padding = PaddingMode.PKCS7;
-
-                ICryptoTransform encryptor = aes.CreateEncryptor();
-                encryptedData = encryptor.TransformFinalBlock(plainBytes, 0, plainBytes.Length);
-            }
-            string encryptedtext = Convert.ToBase64String(encryptedData);
-            File.WriteAllText("ECBEncryptedText.txt", encryptedtext);
-            return encryptedData;
-        }
-
+        
         public static void ECBDecryptFromInput(string EncryptedText, string key, TextBox OriginalTextTB)
         {
-            byte[] encryptedBytes = Convert.FromBase64String(EncryptedText);
-            byte[] decryptedData;
-            using (Aes aes = Aes.Create())
+            byte[] ConvertedBytes = Convert.FromBase64String(EncryptedText);
+            byte[] DecryptedData;
+            using (Aes AES = Aes.Create())
             {
-                aes.KeySize = 256;
-                aes.Key = Encoding.UTF8.GetBytes(key).ToArray();
-                aes.Mode = CipherMode.ECB;
-                aes.Padding = PaddingMode.PKCS7;
+                AES.KeySize = 128;
+                AES.Key = Encoding.UTF8.GetBytes(key).ToArray();
+                AES.Mode = CipherMode.ECB;
+                AES.Padding = PaddingMode.PKCS7;
 
-                ICryptoTransform decryptor = aes.CreateDecryptor();
-                decryptedData = decryptor.TransformFinalBlock(encryptedBytes, 0, encryptedBytes.Length);
-                string decryptedtext = Convert.ToBase64String(decryptedData);
+                ICryptoTransform decryptor = AES.CreateDecryptor();
+                DecryptedData = decryptor.TransformFinalBlock(ConvertedBytes, 0, ConvertedBytes.Length);
+                string decryptedtext = Convert.ToBase64String(DecryptedData);
                 File.WriteAllText("ECBDecryptedText.txt", decryptedtext);
-                OriginalTextTB.Text = Encoding.UTF8.GetString(decryptedData);
+                OriginalTextTB.Text = Encoding.UTF8.GetString(DecryptedData);
             }
             
         }

@@ -26,7 +26,7 @@ namespace InformationSecurityTask2
             switch (comboBox1.SelectedIndex)
             {
                 case 0:
-                    byte[] encryptedData = ECBoperations.ECBEncryptFromInput(PlainTextTB.Text, key);
+                    ECBoperations.ECBEncryptFromInput(PlainTextTB.Text, key);
                     EncryptedTB.Text = File.ReadAllText("ECBEncryptedText.txt");
                     break;
                 case 1:
@@ -54,9 +54,11 @@ namespace InformationSecurityTask2
                     EncryptedTB.Text = File.ReadAllText("CFBEncryptedText.txt");
                     break;
                     case 7:
+                    CFBoperations.CFBDecryptFromInput(EncryptedTB.Text, key, OriginalTextTB);
+                    DecryptedTB.Text = File.ReadAllText("CFBDecryptedText.txt");
                     break; 
                 case 8:
-                    CFBoperations.CFBDecryptFromInput(EncryptedTB.Text, key, OriginalTextTB);
+                    CFBoperations.CFBDecryptFromFile("CFBEncryptedText.txt", key, OriginalTextTB);
                     DecryptedTB.Text = File.ReadAllText("CFBDecryptedText.txt");
                     break;
             }
