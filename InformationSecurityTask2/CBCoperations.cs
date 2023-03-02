@@ -10,11 +10,10 @@ namespace InformationSecurityTask2
 {
     public class CBCoperations
     {
-        public static void CBCEncryptFromInput(string plainText, string key)
+        public static void CBCEncryptFromInput(string plainText, string key, byte[] iv)
         {
             byte[] ConvertedBytesFromText = Encoding.UTF8.GetBytes(plainText);
 
-            byte[] iv = new byte[16];
             using (var rng = new RNGCryptoServiceProvider())
             {
                 rng.GetBytes(iv);
@@ -40,10 +39,9 @@ namespace InformationSecurityTask2
                 }
             }
         }
-        public static void CBCDecryptionfromInput(string encryptedText, string key, TextBox OriginalTextTB)
+        public static void CBCDecryptionfromInput(string encryptedText, string key, TextBox OriginalTextTB, byte[] iv)
         {
             byte[] ConvertedBytes = Convert.FromBase64String(encryptedText);
-            byte[] iv = new byte[16];
             Array.Copy(ConvertedBytes, iv, 16);
 
             using (Aes aes = Aes.Create())
@@ -66,11 +64,10 @@ namespace InformationSecurityTask2
                 }
             }
         }
-        public static void CBCDecryptionFromFile(string filePath, string key, TextBox OriginalTextTB)
+        public static void CBCDecryptionFromFile(string filePath, string key, TextBox OriginalTextTB, byte[] iv)
         {
             string EncryptedTextFromFile = File.ReadAllText(filePath);
             byte[] ConvertedBytes = Convert.FromBase64String(EncryptedTextFromFile);
-            byte[] iv = new byte[16];
             Array.Copy(ConvertedBytes, iv, 16);
 
             using (Aes aes = Aes.Create())

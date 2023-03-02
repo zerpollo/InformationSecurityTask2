@@ -5,10 +5,18 @@ using System.Text;
 
 public static class CFBoperations
 {
-    public static void CFBEncryptFromInput(string plainText, string key)
+    public static byte[] GenerateIV()
+    {
+        using (var rng = new RNGCryptoServiceProvider())
+        {
+            byte[] iv = new byte[16];
+            rng.GetBytes(iv);
+            return iv;
+        }
+    }
+    public static void CFBEncryptFromInput(string plainText, string key, byte[] iv)
     {
         byte[] ConvertedBytesFromText = Encoding.UTF8.GetBytes(plainText);
-        byte[] iv = new byte[16];
         using (var rng = new RNGCryptoServiceProvider())
         {
             rng.GetBytes(iv);
@@ -34,11 +42,10 @@ public static class CFBoperations
         }
     }
 
-    public static void CFBDecryptFromInput(string EncryptedText, string key, TextBox OriginalTextTB)
+    public static void CFBDecryptFromInput(string EncryptedText, string key, TextBox OriginalTextTB, byte[] iv)
     {
 
         byte[] ConvertedBytes = Convert.FromBase64String(EncryptedText);
-        byte[] iv = new byte[16];
         Array.Copy(ConvertedBytes, iv, 16);
 
         using (var aes = Aes.Create())
@@ -60,12 +67,11 @@ public static class CFBoperations
             }
         }
     }
-    public static void CFBDecryptFromFile(string filePath, string key, TextBox OriginalTextTB)
+    public static void CFBDecryptFromFile(string filePath, string key, TextBox OriginalTextTB, byte[] iv)
     {
 
         string EncryptedTextFromFile = File.ReadAllText(filePath);
         byte[] ConvertedBytes = Convert.FromBase64String(EncryptedTextFromFile);
-        byte[] iv = new byte[16];
         Array.Copy(ConvertedBytes, iv, 16);
 
         using (var aes = Aes.Create())

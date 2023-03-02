@@ -40,6 +40,8 @@
             this.DecryptedTB = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.OriginalTextTB = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // PlainTextTB
@@ -150,11 +152,31 @@
             this.OriginalTextTB.Size = new System.Drawing.Size(343, 23);
             this.OriginalTextTB.TabIndex = 13;
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(248, 228);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(110, 15);
+            this.label6.TabIndex = 15;
+            this.label6.Text = "Initialization vector:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(364, 228);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(38, 15);
+            this.label7.TabIndex = 16;
+            this.label7.Text = "label7";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(447, 232);
+            this.ClientSize = new System.Drawing.Size(551, 256);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.OriginalTextTB);
             this.Controls.Add(this.label4);
@@ -188,5 +210,7 @@
         private TextBox DecryptedTB;
         private Label label5;
         private TextBox OriginalTextTB;
+        private Label label6;
+        private Label label7;
     }
 }
