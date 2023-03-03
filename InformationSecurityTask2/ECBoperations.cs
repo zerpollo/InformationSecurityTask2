@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
-using System.Security.Cryptography.Xml;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace InformationSecurityTask2
 {
@@ -12,13 +10,13 @@ namespace InformationSecurityTask2
     {
         public static void ECBEncryptFromInput(string plainText, string key)
         {
-            byte[] ConvertedBytesFromText = Encoding.UTF8.GetBytes(plainText).ToArray();
+            byte[] ConvertedBytesFromText = Encoding.UTF8.GetBytes(plainText);
             byte[] EncryptedBytes;
 
             using (Aes AES = Aes.Create())
             {
                 AES.KeySize = 128;
-                AES.Key = Encoding.UTF8.GetBytes(key).ToArray();
+                AES.Key = Encoding.UTF8.GetBytes(key);
                 AES.Mode = CipherMode.ECB;
                 AES.Padding = PaddingMode.PKCS7;
 
@@ -38,7 +36,7 @@ namespace InformationSecurityTask2
             using (Aes AES = Aes.Create())
             {
                 AES.KeySize = 128;
-                AES.Key = Encoding.UTF8.GetBytes(key).ToArray();
+                AES.Key = Encoding.UTF8.GetBytes(key);
                 AES.Mode = CipherMode.ECB;
                 AES.Padding = PaddingMode.PKCS7;
 
@@ -57,7 +55,7 @@ namespace InformationSecurityTask2
             using (Aes AES = Aes.Create())
             {
                 AES.KeySize = 128;
-                AES.Key = Encoding.UTF8.GetBytes(key).ToArray();
+                AES.Key = Encoding.UTF8.GetBytes(key);
                 AES.Mode = CipherMode.ECB;
                 AES.Padding = PaddingMode.PKCS7;
 

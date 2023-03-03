@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
 
@@ -6,10 +7,15 @@ namespace InformationSecurityTask2
     public partial class Form1 : Form
     {
        private byte[] iv { get; set; }
+        public static byte[] GenerateIV()
+        {
+            byte[] iv = RandomNumberGenerator.GetBytes(16);
+            return iv;
+        }
         public Form1()
         {
             InitializeComponent();
-            iv = CFBoperations.GenerateIV();
+            iv = GenerateIV();
             label7.Text = Convert.ToBase64String(iv);
         }
 

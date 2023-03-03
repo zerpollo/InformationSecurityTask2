@@ -5,23 +5,9 @@ using System.Text;
 
 public static class CFBoperations
 {
-    public static byte[] GenerateIV()
-    {
-        using (var rng = new RNGCryptoServiceProvider())
-        {
-            byte[] iv = new byte[16];
-            rng.GetBytes(iv);
-            return iv;
-        }
-    }
     public static void CFBEncryptFromInput(string plainText, string key, byte[] iv)
     {
         byte[] ConvertedBytesFromText = Encoding.UTF8.GetBytes(plainText);
-        using (var rng = new RNGCryptoServiceProvider())
-        {
-            rng.GetBytes(iv);
-        }
-
         using (var aes = Aes.Create())
         {
             aes.KeySize = 128;

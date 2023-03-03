@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Security.Cryptography.Xml;
+﻿using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace InformationSecurityTask2
 {
@@ -13,11 +8,6 @@ namespace InformationSecurityTask2
         public static void CBCEncryptFromInput(string plainText, string key, byte[] iv)
         {
             byte[] ConvertedBytesFromText = Encoding.UTF8.GetBytes(plainText);
-
-            using (var rng = new RNGCryptoServiceProvider())
-            {
-                rng.GetBytes(iv);
-            }
 
             using (Aes AES = Aes.Create())
             {
@@ -31,7 +21,6 @@ namespace InformationSecurityTask2
                 using (var cs = new CryptoStream(ms, AES.CreateEncryptor(), CryptoStreamMode.Write))
                 {
                     ms.Write(iv, 0, iv.Length);
-
                     cs.Write(ConvertedBytesFromText, 0, ConvertedBytesFromText.Length);
                     cs.FlushFinalBlock();
                     string encryptedtext = Convert.ToBase64String(ms.ToArray());
